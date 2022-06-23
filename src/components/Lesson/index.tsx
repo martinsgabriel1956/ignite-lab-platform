@@ -3,15 +3,21 @@ import { CheckCircle, Lock } from 'phosphor-react';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { LessonProps } from './types';
+import { Link } from 'react-router-dom';
 
-export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type }) => {
+export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type, slug }) => {
   const isAvailableLesson = isPast(availableAt);
   const availableDateFormatted = format(availableAt, "EEEE' • 'd' de 'MMMM' • 'k'h'mm", {
     locale: ptBR
   });
 
   return (
-    <a href="#">
+    <Link 
+      to={`/event/lesson/${slug}`}
+      className="
+        group
+      "
+    >
       <span
         className="
           text-gray-300        
@@ -27,6 +33,7 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type }) => {
           border-gray-500
           p-4
           mt-2
+          group-hover:border-green-500
         "
       >
         <header
@@ -96,7 +103,7 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type }) => {
           {title}
         </strong>
       </div>
-    </a>
+    </Link>
 
   )
 }

@@ -1,9 +1,14 @@
+import { useParams } from "react-router-dom"
 import { Header } from "../../components/Header"
 import { Lesson } from "../../components/Lesson"
 import { Player } from "../../components/Player"
 import { Sidebar } from "../../components/Sidebar"
 
 export const Event: React.FC = () => {
+  const { slug } = useParams<{
+    slug: string
+  }>();
+
   return (
     <div 
       className="
@@ -19,10 +24,11 @@ export const Event: React.FC = () => {
           flex-1  
         "
       >
-        <Player />
+        {slug ? (
+          <Player lessonSlug={slug} />
+        ) : <div className="flex-1"></div>}
         <Sidebar />
       </main>
-      {/* <Lesson /> */}
     </div>
   )
 }

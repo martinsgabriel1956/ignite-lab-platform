@@ -17,8 +17,6 @@ const GET_LESSONS_QUERY = gql`
 export const Sidebar: React.FC = () => {
   const { data } = useQuery<GetLessonsQueryResponse>(GET_LESSONS_QUERY);
 
-  console.log(data);
-
   return (
     <aside 
       className="

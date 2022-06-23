@@ -1,9 +1,14 @@
-import { Event } from "./pages/Event";
+import { ApolloProvider } from "@apollo/client";
+
+import { client } from "./lib/apollo";
+import { Router } from "./Router";
 
 export const App = () => {
   return (
     <>
-       <Event />
+      <ApolloProvider client={client}>
+        <Router />
+      </ApolloProvider>
     </>
   )
 }
