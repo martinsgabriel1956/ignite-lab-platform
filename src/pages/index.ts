@@ -1,2 +1,2 @@
 export * from './Event';
-export * from './LandingPage';
+export * from './Subscribe';

@@ -25,7 +25,8 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
   const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY, {
     variables: {
       slug: lessonSlug
-    }
+    },
+    fetchPolicy: 'network-only'
   })
 
   if(!data) {
