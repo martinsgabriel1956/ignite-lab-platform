@@ -1,38 +1,26 @@
 import { DefaultUi, Player as VideoPlayer, Youtube } from '@vime/react';
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning, Spinner } from "phosphor-react";
-import { gql, useQuery } from '@apollo/client';
 
 import '@vime/core/themes/default.css';
 
-import { GetLessonBySlugResponse, PlayerProps } from './types';
-
-const GET_LESSON_BY_SLUG_QUERY = gql`
-  query GetLessonBySlug($slug: String) {
-    lesson(where: { slug: $slug }) {
-      title
-      videoId
-      description
-      teacher {
-        bio
-        avatarURL
-        name
-      }
-    }
-  }
-`
+import { PlayerProps } from './types';
+import { useGetLessonBySlugQuery } from '../../graphql/generated';
 
 export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
-  const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY, {
+  const { data } = useGetLessonBySlugQuery({
     variables: {
       slug: lessonSlug
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: "no-cache"
   })
 
-  if(!data) {
+  if (!data || !data.lesson) {
     return (
-      <div className='flex-1'>
-        <Spinner className='flex-1 text-blue-500 rotate-90' size={64} />
+      <div className='
+          flex-1
+        '
+      >
+        <Spinner className='flex-1 text-blue-500 rotate-90 absolute left-[40%] top-[50%]' size={84} />
       </div>
     )
   }
@@ -41,6 +29,7 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
     <div
       className="
         flex-1
+        relative
       "
     >
       <div
@@ -102,52 +91,54 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
             >
               {data.lesson.description}
             </p>
-
-            <div
-              className="
-                flex
-                items-center
-                gap-4
-                mt-6
-              "
-            >
-              <img
-                src={data.lesson.teacher.avatarURL}
-                alt={`Avatar do ${data.lesson.teacher.name}`}
-                className="
-                  h-16
-                  w-16
-                  rounded-full
-                  border-2
-                  border-blue-500
-                "
-              />
-
+            {data.lesson.teacher && (
               <div
                 className="
-                  leading-relaxed
+                  flex
+                  items-center
+                  gap-4
+                  mt-6
                 "
               >
-                <strong
+                <img
+                  src={data.lesson.teacher.avatarURL}
+                  alt={`Avatar do ${data.lesson.teacher.name}`}
                   className="
-                    font-bold
-                    text-2xl
-                    block
+                    h-16
+                    w-16
+                    rounded-full
+                    border-2
+                    border-blue-500
+                  "
+                />
+
+                <div
+                  className="
+                    leading-relaxed
                   "
                 >
-                  {data.lesson.teacher.name}
-                </strong>
-                <span
-                  className="
-                    text-gray-200
-                    text-sm
-                    block
-                  "
-                >
-                  {data.lesson.teacher.bio }
-                </span>
+                  <strong
+                    className="
+                      font-bold
+                      text-2xl
+                      block
+                    "
+                  >
+                    {data.lesson.teacher.name}
+                  </strong>
+                  <span
+                    className="
+                      text-gray-200
+                      text-sm
+                      block
+                    "
+                  >
+                    {data.lesson.teacher.bio}
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
+
           </div>
           <div
             className="
