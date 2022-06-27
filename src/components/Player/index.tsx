@@ -11,7 +11,6 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
     variables: {
       slug: lessonSlug
     },
-    fetchPolicy: "no-cache"
   })
 
   if (!data || !data.lesson) {
@@ -49,7 +48,7 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
           "
         >
           <VideoPlayer>
-            <Youtube videoId={data.lesson.videoId} />
+            <Youtube videoId={data.lesson?.videoId} key={data.lesson?.videoId} />
             <DefaultUi />
           </VideoPlayer>
         </div>
