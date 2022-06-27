@@ -19,7 +19,17 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
           flex-1
         '
       >
-        <Spinner className='flex-1 text-blue-500 rotate-90 absolute left-[40%] top-[50%]' size={84} />
+        <Spinner 
+          className='
+            flex-1 
+            text-blue-500 
+            animate-spin 
+            absolute 
+            left-[40%] 
+            top-[50%]
+          ' 
+          size={84} 
+        />
       </div>
     )
   }
@@ -48,7 +58,10 @@ export const Player: React.FC<PlayerProps> = ({ lessonSlug }) => {
           "
         >
           <VideoPlayer>
-            <Youtube videoId={data.lesson?.videoId} key={data.lesson?.videoId} />
+            <Youtube 
+              videoId={data.lesson?.videoId} 
+              key={data.lesson?.videoId} 
+            />
             <DefaultUi />
           </VideoPlayer>
         </div>

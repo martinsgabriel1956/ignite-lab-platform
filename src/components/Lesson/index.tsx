@@ -18,7 +18,7 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type, slug }
 
   return (
     <Link 
-      to={`/event/lesson/${slug}`}
+      to={isAvailableLesson ? `/event/lesson/${slug}`: '#'}
       className="
         group
       "
@@ -38,8 +38,10 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type, slug }
         border-gray-500
           p-4
           mt-2
-        group-hover:border-green-500`, {
-          'bg-green-500' : isActiveLesson
+        `, {
+          'bg-green-500' : isActiveLesson,
+          'group-hover:border-green-500': isAvailableLesson,
+          'group-hover:border-orange-500': !isAvailableLesson,
           }
         )}
       >
@@ -93,7 +95,6 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type, slug }
                 rounded
                 px-2
                 py-[0.125rem]
-              text-white
                 border
               border-green-300
                 font-bold
@@ -101,7 +102,8 @@ export const Lesson: React.FC<LessonProps> = ({ title, availableAt, type, slug }
               `, {
                 'border-white': isActiveLesson,
                 'border-green-300': !isActiveLesson,
-                
+                'text-green-500': !isAvailableLesson,
+                'text-white': isAvailableLesson,
               }
             )}
           >

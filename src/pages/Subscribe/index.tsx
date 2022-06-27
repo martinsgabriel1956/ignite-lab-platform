@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "../../components/UI/Logo";
 import { useCreateSubscriberMutation } from "../../graphql/generated";
 
+import codeMockupImage from "/src/assets/code-mockup.png";
+import reactIcon from "/src/assets/react-icon.svg";
+
 export const Subscribe: React.FC = () => {
   const navigate = useNavigate();
 
@@ -51,6 +54,7 @@ export const Subscribe: React.FC = () => {
           justify-between
           mt-20
           mx-auto
+          relative
         "
       >
         <div 
@@ -152,11 +156,21 @@ export const Subscribe: React.FC = () => {
             </button>
           </form>
         </div>
+        <img 
+          src={reactIcon} 
+          alt="React Icon"
+          className="
+            absolute
+            top-[-80px]
+            left-60
+            right-0
+          "
+        />
       </div>
       <img 
-        className="mt-10"
-        src="/src/assets/code-mockup.png" 
-        alt="" 
+        className="mt-2"
+        src={codeMockupImage}
+        alt="Imagem da plataforma" 
       />
     </div>
   )
